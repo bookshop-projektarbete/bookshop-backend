@@ -1,27 +1,25 @@
-// Import
+// index.js
 require('dotenv').config();
-const express = require('express')    // Import express, a light-weight framework
-const app = express()                 // Init express, and save it in "app" variable
-const mongoose = require('mongoose'); // Import mongoose, a tool that gives NoSQL DB (such as Mongodb), the ablilities of a relational DB (such MySQL)
-const corse = require('cors');
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const helmet = require('helmet');
+const app = express();
 
-//Middleware
-app.use(corse());           // Allow cross-origin requests 
-app.use(helmet());          // Protection. Needs explanation
-app.use(express.json());    // Formats data to Json
+app.use(cors());  // Enable cross-origin requests
+app.use(helmet());  // Add security headers
+app.use(express.json());  // Parse JSON requests
 
-// Import and use routes
+// Import and use the products route (which will now return books)
 const productRouter = require('./routes/products');
-app.use('/products', productRouter);
+app.use('/products', productRouter);  // Link "/products" to the productRouter
 
-// Connect to your own DB
-mongoose.connect(
-    process.env.DB_URL,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => {console.log('DB connected')}
-)
+// Connect to MongoDB
+mongoose.connect(process.env.DB_URL)
+  .then(() => console.log('DB connected'))
+  .catch((err) => console.error('Error connecting to DB:', err));
 
-// Listen to server
-app.listen(process.env.PORT || 5000); //Listen through port 5000
-
+// Start the server
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 5000}`);
+});
