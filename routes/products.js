@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         console.log('Fetched Books:', books);
 
         if (!books || books.length === 0) {
-            return res.status(404).json({ message: 'No books found' });
+            return res.status(404).json({ message: 'No books found.' });
         }
 
         // Return books as JSON
