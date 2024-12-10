@@ -1,6 +1,12 @@
 // models/Book.js
 const mongoose = require('mongoose');
 
+// Define the cover image schema
+const coverImageSchema = new mongoose.Schema({
+    url: { type: String, required: true },
+    alt: { type: String, required: true }
+});
+
 // Define the book schema
 const bookSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -10,7 +16,7 @@ const bookSchema = new mongoose.Schema({
     category: { type: String, required: true },
     stock: { type: Number, required: true },
     description: { type: String, required: true },
-    cover_image: { type: String, required: true },
+    cover_image: { type: coverImageSchema, required: true }
 });
 
 // Create and export the Book model
