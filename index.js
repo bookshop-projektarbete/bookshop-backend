@@ -6,6 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const app = express();
 
+// Middleware
 app.use(cors());  // Enable cross-origin requests
 app.use(helmet());  // Add security headers
 app.use(express.json());  // Parse JSON requests
