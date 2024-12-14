@@ -27,4 +27,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get a specific book based on ID
+router.get('/:id', async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.id);
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found.' });
+        }
+        res.json(book);
+    } catch (error) {
+        console.error('Error fetching book by ID:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;
