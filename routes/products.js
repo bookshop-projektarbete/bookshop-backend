@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 // Get a specific book based on ID
 router.get('/:id', async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await Book.findOne({ _id: req.params.id });
         if (!book) {
             return res.status(404).json({ message: 'Book not found.' });
         }
